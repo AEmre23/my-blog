@@ -54,22 +54,53 @@ const Login = () => {
     else  password.current.type = 'text'
   }
 
+  const container1 = {
+    hidden: { x: -700, scale: .1 },
+    show: {
+      x: 0, scale: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.35,
+        duration:.6,
+        delay: .5,
+        type: "tween"
+      }
+    }
+  }
+
+  const containerChild = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 }
+  }
+
+  const container2 = {
+    hidden: { x: 700, scale: 0.1 },
+    show: {
+      x: 0, scale: 1,
+      transition: {
+        duration: .8,
+        type: "spring",
+        stiffness: 90 
+      }
+    }
+  }
+
   return (
     <Layout>
-      <div className='flex mobile:flex-col-reverse mobile:gap-6 justify-around overflow-hidden mt-16 mobile:mt-6'>
+      <div className='flex mobile:flex-col-reverse mobile:gap-6 justify-around mt-16 mobile:mt-6'>
         <m.form
           onSubmit={handleForm}
-          transition={{ ease: 'easeOut', duration: .75, delay: 1 }}
-          initial={{ x: -700 }}
-          animate={{ x: 0 }}
+          variants={container1}
+          initial="hidden"
+          animate="show"
           className={`${loading ? 'blur-[2px]' : ''} flex flex-col gap-10 mobile:gap-8 border-2 rounded-md border-l-text dark:border-scolor p-3 mobile:pb-10 my-4 w-96 mobile:w-full relative`}
         >
-          <div className="flex flex-col gap-2 relative">
+          <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Email</label>
             <input ref={email} className={`${validEmail ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
             {validEmail ? null : <div className="absolute text-red-600 -bottom-6 left-1">{error}</div>}
-          </div>
-          <div className="flex flex-col gap-2 relative">
+          </m.div>
+          <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Password</label>
             <input ref={password} className={`${validPassword ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400 `} type='password' placeholder='Enter your password' />
             {showPassword ?
@@ -77,28 +108,30 @@ const Login = () => {
             : <BiHide onClick={passwordShower} className="absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400" />
             }
           {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{error}</div>}
-          </div>
-          <div className="w-full flex justify-center mt-4 relative">
+          </m.div>
+          <m.div variants={containerChild} className="w-full flex justify-center mt-4 relative">
             <button ref={submitButton} className="p-2 bg-buttonc font-inter active:scale-95 text-white rounded-lg text-bold text-lg w-72 transition-all hover:brightness-110" type='submit'>Login</button>
             <div className="absolute -bottom-8">Don't have an account? <Link href="/Signup"><span className="text-scolor cursor-pointer hover:underline">Signup.</span></Link></div>
-          </div>
+          </m.div>
           {loading ? <div className="absolute top-0 right-0 w-full h-full bg-black/30"><div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2"><Image src={loadingif} alt='loader'/></div></div> : null}
         </m.form>
         <m.div
-          transition={{ duration: 1 }}
-          initial={{ x:700 }}
-          animate={{ x: 0 }}
-          className="flex flex-col gap-4 items-center justify-center overflow-hidden"
+          variants={container2}
+          initial="hidden"
+          animate="show"
+          drag
+          dragConstraints={{ right:5,left:5,top:5,bottom:5}}
+          className="flex flex-col gap-4 items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing"
         >
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-6xl font-semibold">
               Login
             </h1>
             <p className="text-xl" >
-              Create your blog by logging in!
+              Get started by logging in!
             </p>
           </div>
-          <div className="mobile:hidden">
+          <div className="mobile:hidden pointer-events-none">
             <Image width={350} height={275} src={loginPic} alt='log-ill' />
           </div>
         </m.div>

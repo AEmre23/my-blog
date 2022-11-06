@@ -7,7 +7,7 @@ import NavBar from '../src/components/NavBar'
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <div  className='font-nunito min-h-screen duration-700 text-l-text bg-bg-light dark:bg-bg-dark dark:text-d-text' >
+      <div  className='font-nunito min-h-screen duration-700 text-l-text bg-bg-light dark:bg-bg-dark dark:text-d-text overflow-hidden' >
         <NavBar />
         <Component {...pageProps} />
       </div>

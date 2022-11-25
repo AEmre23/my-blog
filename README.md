@@ -14,11 +14,11 @@ Still under construction.
 - Signup/login/logout
 - Dark/light theme
 - Responsive design
+- Every user can create his own blog posts.
 - Animations!
 
 ### Todo
 
-- Every user can create his own blog posts.
 - Profile page and you can update your profile (like picture, username etc.).
 - See other people profiles and their blog posts, favorites etc.
 - (Maybe?) Can comment to the blog posts.

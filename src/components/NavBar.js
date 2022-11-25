@@ -59,7 +59,7 @@ const NavBar = () => {
                   <div onMouseOver={(e)=>e.currentTarget.lastElementChild.style.display='block'} onMouseLeave={(e)=>e.currentTarget.lastElementChild.style.display='none'} className="flex gap-4 relative cursor-pointer">
                     <div className="">{user.name}</div>
                     <div className=""><Image className="rounded-full" src={avatar} width={25} height={25} alt='avatar' /></div>
-                    <button onClick={logout} className="absolute hidden -bottom-8 border-2 border-black bg-white text-black p-1 w-full">Logout</button>
+                    <button onClick={logout} className="absolute hidden -bottom-8 shadow-md border-2 border-white bg-scolor text-white p-1 w-full">Logout</button>
                   </div>
                 </div>
               }

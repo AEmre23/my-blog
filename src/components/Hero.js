@@ -1,5 +1,4 @@
 import React from 'react'
-import bgimage from '../assets/bg.png'
 
 const Hero = () => {
   return (

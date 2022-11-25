@@ -43,7 +43,6 @@ const CreatePost = () => {
 
   const postsCollectionRef = collection(db, "posts")
   const createPost = async (post) => {
-    console.log(post);
     setLoading(true)
     await addDoc(postsCollectionRef, post)
     setLoading(false)

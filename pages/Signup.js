@@ -50,20 +50,20 @@ const Signup = () => {
         setloading(false)
         valid=false
       });
-      await updateProfile(auth.currentUser, { displayName: username }).catch(
-        (err) => console.log(err)
-      );
+      await updateProfile(auth.currentUser, { displayName: username }).catch((err) => console.log(err));
     } catch (err) {
       console.log(err);
   }
     setloading(false)
-    if(valid){
-      submitButton.current.innerText = 'Done'
-      submitButton.current.style.backgroundColor = 'lightgreen'
-      setTimeout(() => { router.push('/') },2000)
+    if (valid) {
+      setTimeout(() => { window.location.reload() ; router.push('/')   },2000)
+    //   console.log(submitButton.current.innerText)
+    //   submitButton.current.innerText = 'Done'
+    //   submitButton.current.style.backgroundColor = 'lightgreen'
+    //   setTimeout(() => { router.push('/') },2000)
     }
   };
-  
+
   const handleForm = (e) => {
     let valid = [0,0,0]
     e.preventDefault()

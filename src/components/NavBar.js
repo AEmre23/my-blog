@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux'
 
 const NavBar = () => {
   const router = useRouter()
-  const user = useSelector((state)=> state.user.value)
+  const user = useSelector((state) => state.user.value)
 
   const [menuToggle, setMenuToggle] = useState(true)
   const mobileMenu = useRef()
@@ -48,7 +48,7 @@ const NavBar = () => {
               <Link href="/Contact"><li className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">Contact</li></Link>
             </ul>
             <div className="">
-              {user.name.length === 0 ?
+              {user.email.length === 0 ?
                 <ul className="flex gap-4">
                   <Link href="/Login"><li className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">Login</li></Link>
                   <Link href="/Signup"><li className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">Signup</li></Link>
@@ -78,10 +78,10 @@ const NavBar = () => {
         <div className='px-6 text-right flex flex-col gap-3 text-2xl'>
           <Link href="/About"><div onClick={()=>setMenuToggle(true)}>About</div></Link>
           <Link href="/Contact"><div onClick={() => setMenuToggle(true)}>Contact</div></Link>
-          {user.name.length === 0 ?
-          <>
-            <Link href="/Login"><div onClick={() => setMenuToggle(true)}>Login</div></Link>
-            <Link href="/Signup"><div onClick={() => setMenuToggle(true)}>Signup</div></Link>
+          {user.email.length === 0 ?
+            <>
+              <Link href="/Login"><div onClick={() => setMenuToggle(true)}>Login</div></Link>
+              <Link href="/Signup"><div onClick={() => setMenuToggle(true)}>Signup</div></Link>
             </>
             :
             <>

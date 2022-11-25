@@ -13,7 +13,8 @@ module.exports = {
     extend: {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
-        'nunito':['Nunito', 'sans-serif']  
+        'nunito': ['Nunito', 'sans-serif'],
+        'rubik' : ['Rubik', 'sans-serif'],
       },
       colors: {
         'bg-light': '#f8f5f2',
@@ -24,8 +25,10 @@ module.exports = {
         'scolor': '#f45d48',
         'buttond': '#f9bc60',
         'sdarkc': '#abd1c6',
-      }
-    },
+        'newbg': '#F3F1E4',
+        'newtext': '#0A3534',
+      },
+    }
   },
   plugins: [],
 }

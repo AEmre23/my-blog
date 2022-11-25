@@ -1,16 +1,21 @@
-import React,{ useState, useRef } from 'react'
+import React,{ useState, useRef, useEffect } from 'react'
 import Layout from '../src/components/Layout'
-import loginPic from '../src/assets/login1.png'
 import { motion as m } from 'framer-motion'
+import { useSelector } from 'react-redux'
+// next
 import Image from 'next/image'
-import { BiShow, BiHide } from 'react-icons/bi'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../src/firebase-config'
-import { useRouter } from 'next/router'
-import loadingif from '../src/assets/loading.gif'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+// assets
+import { BiShow, BiHide } from 'react-icons/bi'
+import loadingif from '../src/assets/loading.gif'
+import loginPic from '../src/assets/login1.png'
+// firebase
+import { signInWithEmailAndPassword,onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../src/firebase-config'
 
 const Login = () => {
+  //const user = useSelector((state)=> state.user.value)
   const [loading, setloading] = useState(false)
   const router = useRouter()
   const email = useRef()
@@ -21,20 +26,26 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(true)
   const [error, setError] = useState('')
 
+  useEffect(() => {
+    setloading(true)
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser !== null) router.push('/')
+      else setloading(false)
+    })
+  }, []);
+
   const login = async (email, password) => {
     let valid = true
     setloading(true)
     try {
-      await signInWithEmailAndPassword(auth, email, password).catch((err) => {
-        console.log(err)
+      await signInWithEmailAndPassword(auth, email, password)
+    } catch (err) {
+        console.error(err.message);
         setValidEmail(false)
         setValidPassword(false)
         setError('email or password is invalid')
         valid = false
         setloading(false)
-      });
-    } catch (err) {
-      console.log(err);
     } finally {
       setloading(false)
       if (valid) setTimeout(() => { router.push('/') }, 1000)
@@ -97,23 +108,26 @@ const Login = () => {
         >
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Email</label>
-            <input ref={email} className={`${validEmail ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
+            <input autoComplete="email"  ref={email} className={`${validEmail ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
             {validEmail ? null : <div className="absolute text-red-600 -bottom-6 left-1">{error}</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Password</label>
             <input ref={password} className={`${validPassword ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400 `} type='password' placeholder='Enter your password' />
-            {showPassword ?
-            <BiShow onClick={passwordShower} className="absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400" />
-            : <BiHide onClick={passwordShower} className="absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400" />
-            }
-          {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{error}</div>}
+            {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
+            {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{error}</div>}
           </m.div>
           <m.div variants={containerChild} className="w-full flex justify-center mt-4 relative">
             <button ref={submitButton} className="p-2 bg-buttonc font-inter active:scale-95 text-white rounded-lg text-bold text-lg w-72 transition-all hover:brightness-110" type='submit'>Login</button>
             <div className="absolute -bottom-8">Don't have an account? <Link href="/Signup"><span className="text-scolor cursor-pointer hover:underline">Signup.</span></Link></div>
           </m.div>
-          {loading ? <div className="absolute top-0 right-0 w-full h-full bg-black/30"><div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2"><Image src={loadingif} alt='loader'/></div></div> : null}
+          {loading ?
+            <div className="absolute top-0 right-0 w-full h-full bg-black/30">
+              <div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2">
+                <Image src={loadingif} alt='loader' />
+              </div>
+            </div>
+          : null}
         </m.form>
         <m.div
           variants={container2}

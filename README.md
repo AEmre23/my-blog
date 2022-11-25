@@ -2,6 +2,8 @@
 
 ### Visit live site from [here.](https://emre-blog.vercel.app/)
 
+## About
+
 Blog app created with Next.js, TailwindCSS and Redux Toolkit.<br />
 I use [Framer Motion](https://www.framer.com/developers/) as animation library.<br />
 User system and database provided by [Firebase](https://firebase.google.com/).<br />

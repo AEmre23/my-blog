@@ -1,15 +1,19 @@
 import React,{ useState,useRef,useEffect } from 'react'
 import Layout from '../src/components/Layout'
-import signupPic from '../src/assets/Mobile-login.png'
 import { motion as m } from 'framer-motion'
+// next
 import Image from 'next/image'
-import loadingif from '../src/assets/loading.gif'
 import { useRouter } from 'next/router'
-import { BiShow, BiHide } from 'react-icons/bi'
-import { validateEmail } from '../src/functions/emailValidation'
-import { updateProfile,createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../src/firebase-config'
 import Link from 'next/link'
+// assets
+import loadingif from '../src/assets/loading.gif'
+import { BiShow, BiHide } from 'react-icons/bi'
+import signupPic from '../src/assets/Mobile-login.png'
+// firebase
+import { validateEmail } from '../src/functions/emailValidation'
+import { updateProfile, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../src/firebase-config'
+
 
 const Signup = () => {
   const router = useRouter()
@@ -26,6 +30,14 @@ const Signup = () => {
   const [validEmail, setValidEmail] = useState(true)
   const [validPassword, setValidPassword] = useState(true)
   const [validPasswordCheck, setValidPasswordCheck] = useState(true)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+    setloading(true)
+      if (currentUser !== null) router.push('/')
+      else setloading(false)
+    })
+  }, []);
 
   const register = async (email, password, username) => {
   let valid=true
@@ -159,26 +171,26 @@ const Signup = () => {
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Password*</label>
             <input ref={password1} className={`${validPassword ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400 `} type='password' placeholder='Enter a password' />
-            {showPassword ?
-            <BiShow onClick={passwordShower} className="absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400" />
-            : <BiHide onClick={passwordShower} className="absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400" />
-            }
-          {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
+            {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
+            {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Enter password again*</label>
             <input ref={password2} className={`${validPasswordCheck ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400`} type='password' placeholder='Enter password again' />
-            {showPassword ?
-            <BiShow onClick={passwordShower} className="absolute bottom-3 scale-125 text-white right-3 cursor-pointer hover:text-gray-400" />            
-            : <BiHide onClick={passwordShower} className="absolute bottom-3 scale-125 text-white right-3 cursor-pointer hover:text-gray-400" />
-            }
-          {validPasswordCheck ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
+            {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
+            {validPasswordCheck ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
           </m.div>
           <m.div variants={containerChild} className="w-full flex justify-center mt-4 relative">
             <button ref={submitButton} className="p-2 bg-buttonc font-inter active:scale-95 text-white rounded-lg text-bold text-lg w-72 transition-all hover:brightness-110" type='submit'>Sign up</button>
             <div className="absolute -bottom-8">Already an user? <Link href="/Login"><span className="text-scolor cursor-pointer hover:underline">Login.</span></Link></div>
           </m.div>
-          {loading ? <div className="absolute top-0 right-0 w-full h-full bg-black/30"><div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2"><Image src={loadingif} alt='loader'/></div></div> : null}
+          {loading ?
+            <div className="absolute top-0 right-0 w-full h-full bg-black/30">
+              <div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2">
+                <Image src={loadingif} alt='loader' />
+              </div>
+            </div>
+          : null}
         </m.form>
         <m.div
           variants={container2}

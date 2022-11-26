@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import Layout from '../../src/components/Layout'
 
 
-const id = () => {
+const Id = () => {
   const posts = useSelector((state) => state.posts.value.sortedData)
   const router = useRouter()
   const { id } = router.query
@@ -23,4 +23,4 @@ const id = () => {
   )
 }
 
-export default id
+export default Id

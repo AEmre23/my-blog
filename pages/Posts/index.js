@@ -4,7 +4,7 @@ import Layout from '../../src/components/Layout'
 import BlogCard from '../../src/components/BlogCard'
 
 
-const index = () => {
+const Index = () => {
   const posts = useSelector((state) => state.posts.value.sortedData)
   const categories = ["All","Technology", "Design", "Food", "Travel", "Social Media", "Life", "Other"]
   const [filter, setFilter] = useState("All")
@@ -36,4 +36,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

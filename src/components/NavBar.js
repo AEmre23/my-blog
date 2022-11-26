@@ -44,8 +44,8 @@ const NavBar = () => {
           </Link>
           <div className="flex gap-24 mt-2 mobile:hidden">
             <ul className="flex gap-4">
+              <Link href="/Posts"><li className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">Posts</li></Link>
               <Link href="/About"><li className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">About</li></Link>
-              <Link href="/Contact"><li className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">Contact</li></Link>
             </ul>
             <div className="">
               {user.email.length === 0 ?
@@ -56,10 +56,10 @@ const NavBar = () => {
                 :
                 <div className="flex gap-3">
                   <Link href="/CreatePost"><span className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-gray-300">Create Post</span></Link>
-                  <div onMouseOver={(e)=>e.currentTarget.lastElementChild.style.display='block'} onMouseLeave={(e)=>e.currentTarget.lastElementChild.style.display='none'} className="flex gap-4 relative cursor-pointer">
+                  <div onMouseOver={(e)=>e.currentTarget.lastElementChild.style.display='block'} onMouseLeave={(e)=>e.currentTarget.lastElementChild.style.display='none'} className="flex flex-row-reverse gap-2 pl-4 relative cursor-pointer">
                     <div className="">{user.name}</div>
                     <div className=""><Image className="rounded-full" src={avatar} width={25} height={25} alt='avatar' /></div>
-                    <button onClick={logout} className="absolute hidden -bottom-8 shadow-md border-2 border-white bg-scolor text-white p-1 w-full">Logout</button>
+                    <button onClick={logout} className="absolute hidden -bottom-8 left-3 shadow-md border-2  border-white bg-scolor text-white p-1 w-full">Logout</button>
                   </div>
                 </div>
               }
@@ -77,7 +77,7 @@ const NavBar = () => {
       <div ref={mobileMenu} className={`border-l-2 ${menuToggle ? 'translate-x-[225px]' : 'translate-x-0'} duration-500 fixed z-40 top-0 pt-24 right-0 w-[225px] h-screen bg-scolor text-white`}>
         <div className='px-6 text-right flex flex-col gap-3 text-2xl'>
           <Link href="/About"><div onClick={()=>setMenuToggle(true)}>About</div></Link>
-          <Link href="/Contact"><div onClick={() => setMenuToggle(true)}>Contact</div></Link>
+          <Link href="/Posts"><div onClick={() => setMenuToggle(true)}>Posts</div></Link>
           {user.email.length === 0 ?
             <>
               <Link href="/Login"><div onClick={() => setMenuToggle(true)}>Login</div></Link>

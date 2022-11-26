@@ -11,6 +11,10 @@ html {
   @apply absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400;
 }
 
+.selected{
+  @apply font-bold scale-105;
+}
+
 .switch {
   position: relative;
   display: inline-block;

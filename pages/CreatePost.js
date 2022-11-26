@@ -98,7 +98,7 @@ const CreatePost = () => {
             <small className="text-gray-500 dark:text-slate-300">If you don't write description, the first 20 word of your blog post will shown on description</small>
           </div>
           <div className="flex justify-between px-2 mobile:flex-col mobile:px-0 mobile:gap-3">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-8">
               <label className="block font-bold">Blog Category</label>
               <select className="w-96 mobile:w-full p-2 cursor-pointer text-black rounded-md" defaultValue={'DEFAULT'}>
                 <option value="DEFAULT" disabled>Choose a Topic</option>

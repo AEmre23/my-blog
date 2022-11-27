@@ -66,14 +66,14 @@ const Login = () => {
   }
 
   const container1 = {
-    hidden: { x: -700, scale: .1 },
+    hidden: { delay:1, x: -700, scale: .1 },
     show: {
       x: 0, scale: 1,
       transition: {
         when: "beforeChildren",
         staggerChildren: 0.35,
-        duration:.6,
-        delay: .5,
+        duration: .6,
+        delay: 1.3,
         type: "tween"
       }
     }
@@ -91,7 +91,8 @@ const Login = () => {
       transition: {
         duration: .8,
         type: "spring",
-        stiffness: 90 
+        stiffness: 90,
+        delay:.8
       }
     }
   }
@@ -104,7 +105,7 @@ const Login = () => {
           variants={container1}
           initial="hidden"
           animate="show"
-          className={`${loading ? 'blur-[2px]' : ''} flex flex-col gap-10 mobile:gap-8 border-2 rounded-md border-l-text dark:border-scolor p-3 mobile:pb-10 my-4 w-96 mobile:w-full relative`}
+          className={`${loading ? 'blur-[3px]' : ''} flex flex-col gap-10 mobile:gap-8 border-2 rounded-md border-l-text dark:border-scolor p-3 mobile:pb-10 my-4 w-96 mobile:w-full relative`}
         >
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Email</label>

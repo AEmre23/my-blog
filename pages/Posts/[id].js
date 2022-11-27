@@ -9,15 +9,14 @@ const Id = () => {
   const router = useRouter()
   const { id } = router.query
   const pagePost = posts.filter((each) => each.id === id)
-  console.log(pagePost,pagePost.title);
 
   return (
     <Layout>
       <div className="flex flex-col gap-3 ">
-        <div className="font-bold text-2xl">{pagePost[0].title}</div>
-        <div className="">{pagePost[0].description}</div>
-        <div className="">Author:{pagePost[0].author.name}</div>
-        <div className="">{pagePost[0].text}</div>
+        <div className="font-bold text-2xl">{pagePost[0]?.title}</div>
+        <div className="">{pagePost[0]?.description}</div>
+        <div className="">Author:{pagePost[0]?.author.name}</div>
+        <div className="">{pagePost[0]?.text}</div>
       </div>
     </Layout>
   )

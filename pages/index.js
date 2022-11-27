@@ -9,9 +9,10 @@ export default function Home() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <Head>
-        <title>emrealtunkaya | Blog </title>
+        <title>e-Blog </title>
         <meta name="Emre's blog" content="Blog created using Next.js and Firebase by Emre Altunkaya" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

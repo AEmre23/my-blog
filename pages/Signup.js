@@ -125,7 +125,7 @@ const Signup = () => {
         when: "beforeChildren",
         staggerChildren: 0.2,
         duration:.6,
-        delay: .5,
+        delay: 1.3,
         type: "tween"
       }
     }
@@ -143,7 +143,8 @@ const Signup = () => {
       transition: {
         duration: .8,
         type: "spring",
-        stiffness: 90 
+        stiffness: 90,
+        delay: .8
       }
     }
   }

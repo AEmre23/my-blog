@@ -9,8 +9,9 @@ import { useDispatch } from 'react-redux'
 import { setLogin } from '../src/stores/user'
 import { setPosts } from '../src/stores/posts'
 import { collection, getDocs } from 'firebase/firestore'
+import { AnimatePresence } from 'framer-motion'
 
-function AppComponent({ Component, pageProps }) {
+function AppComponent({ Component, pageProps, router }) {
   const posts = useSelector((state) => state.posts.value.sortedData)
   const dispatch = useDispatch()
   const postsCollectionRef = collection(db, "posts")
@@ -42,17 +43,21 @@ function AppComponent({ Component, pageProps }) {
   }, []);
 
   return (
-    <div  className='font-nunito min-h-screen duration-700 text-newtext bg-newbg dark:bg-bg-dark dark:text-d-text overflow-hidden mobile:overflow-clip' >
+    <div className='font-nunito min-h-screen duration-700 text-newtext bg-newbg dark:bg-bg-dark dark:text-d-text overflow-hidden mobile:overflow-clip' >
       <NavBar />
-      {posts?.length > 0 ? <Component {...pageProps} /> : null}
+      {posts?.length > 0 ?
+        <AnimatePresence>
+          <Component key={router.pathname} {...pageProps} />
+        </AnimatePresence>
+        : null}
     </div>
   )
 }
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps,router }) {
   return (
     <Provider store={store}>
-      <AppComponent Component={Component} pageProps={pageProps} />
+      <AppComponent Component={Component} pageProps={pageProps} router={router} />
     </Provider>
     )
 }

@@ -6,19 +6,20 @@
 
 Blog app created with Next.js, TailwindCSS and Redux Toolkit.<br />
 I use [Framer Motion](https://www.framer.com/developers/) as animation library.<br />
-User system and database provided by [Firebase](https://firebase.google.com/).<br />
+User system and database created with [Firebase](https://firebase.google.com/).<br />
 Still under construction.
 
 ### Working features
 
 - Signup/login/logout
-- Dark/light theme
+- Dark/light theme -_Disabled_
 - Responsive design
-- Every user can create his own blog posts.
+- Every user can create his own blog post.
 - Animations!
 
 ### Todo
 
+- Search bar
 - Profile page and you can update your profile (like picture, username etc.).
 - See other people profiles and their blog posts, favorites etc.
 - (Maybe?) Can comment to the blog posts.

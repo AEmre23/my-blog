@@ -12,7 +12,11 @@ html {
 }
 
 .selected{
-  @apply font-bold scale-105;
+  @apply text-scolor scale-110;
+}
+
+.stopscroll{
+  overflow: hidden;
 }
 
 .switch {

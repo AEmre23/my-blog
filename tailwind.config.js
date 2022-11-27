@@ -23,9 +23,9 @@ module.exports = {
         'bg-dark': '#004643',
         'buttonc': '#078080',
         'scolor': '#f45d48',
-        'buttond': '#f9bc60',
+        'bhover': '#127475',
         'sdarkc': '#abd1c6',
-        'newbg': '#F3F1E4',
+        'newbg': '#EFEAC8',
         'newtext': '#0A3534',
       },
     }

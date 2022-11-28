@@ -26,9 +26,15 @@ const NavBar = () => {
     setTimeout(()=> {window.location.reload()},1000)
   }
 
+  useEffect(() => {
+    // If menu is opened in mobile, scrolling gonna be blocked
+    if (menuToggle) document.documentElement.classList.remove('stopscroll')
+    else document.documentElement.classList.add('stopscroll')
+  }, [menuToggle]);
+
   return (
     <div className="absolute mobile:fixed top-0 right-0 w-full z-30">
-      <header className="w-full bg-white/75 text-newtext text-lg font-bold border-b-2 p-4 flex justify-center items-center">
+      <header className="w-full bg-newbg/75 text-newtext text-lg font-bold border-b-2 border-newtext/75 p-4 flex justify-center items-center">
         <div className="w-9/12 mobile:w-11/12 flex justify-between items-center">
           <Link href='/'>
             <div onClick={()=>setMenuToggle(true)}  className="flex items-center gap-3 cursor-pointer transition-all scale-125 hover:scale-[1.27]">
@@ -67,7 +73,7 @@ const NavBar = () => {
           </div>
         </div>
       </header>
-      <div ref={mobileMenu} className={`border-l-2 ${menuToggle ? 'translate-x-[225px] touch-none' : 'translate-x-0 '} duration-500 fixed z-40 top-0 pt-24 right-0 w-[225px] h-screen bg-white/90 text-newtext`}>
+      <div ref={mobileMenu} className={`border-l-2 ${menuToggle ? 'translate-x-[225px]' : 'translate-x-0 '} duration-500 fixed z-40 top-0 pt-24 right-0 w-[225px] h-screen bg-white/90 text-newtext`}>
         <div className='px-6 text-right flex flex-col gap-3 text-2xl font-bold'>
           <Link href="/Posts"><div onClick={() => setMenuToggle(true)}>Posts</div></Link>
           <Link href="/About"><div onClick={()=>setMenuToggle(true)}>About</div></Link>
@@ -77,14 +83,14 @@ const NavBar = () => {
               <Link href="/Signup"><div onClick={() => setMenuToggle(true)}>Signup</div></Link>
             </div>
             :
-            <div className="pt-4">
+            <div>
               <Link href="/CreatePost"><div onClick={() => setMenuToggle(true)}>Create Post</div></Link>
               <div>
-                <div className="flex justify-end items-center gap-3 mt-6 text-right">
+                <div className="flex justify-end items-center gap-3 mt-12 text-right">
                   <div className="">{user.name}</div>
                   <div className="mt-1"><Image className="rounded-full" src={avatar} width={40} height={40} alt='avatar' /></div>
                 </div>
-                <button className="mt-2 text-sm p-2 bg-white text-scolor font-semibold rounded-md shadow-md" onClick={() => { logout(); router.push('/') }}>Logout</button>
+                <button className="mt-2 text-sm p-2 bg-newtext text-white font-semibold rounded-md shadow-md" onClick={() => { logout(); router.push('/') }}>Logout</button>
               </div>
             </div>
           }

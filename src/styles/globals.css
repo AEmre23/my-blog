@@ -6,9 +6,10 @@
 
 html {
   overflow-y: overlay;
+  scroll-behavior: smooth;
 }
 .showhide{
-  @apply absolute bottom-3 text-white right-3 cursor-pointer scale-125 hover:text-gray-400;
+  @apply absolute bottom-3 text-gray-400 right-3 cursor-pointer scale-125 hover:text-black;
 }
 
 .selected{

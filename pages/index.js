@@ -12,7 +12,7 @@ export default function Home() {
       exit={{ opacity: 0 }}
     >
       <Head>
-        <title>e-Blog </title>
+        <title>e-Blog | Home</title>
         <meta name="Emre's blog" content="Blog created using Next.js and Firebase by Emre Altunkaya" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -46,7 +46,8 @@ const CreatePost = () => {
     setLoading(true)
     await addDoc(postsCollectionRef, post)
     setLoading(false)
-    setTimeout(() => {router.push('/')} , 1500 )
+    router.push('/')
+    setTimeout(() => {window.location.reload()} , 500 )
   }
 
   const formHandler = (e) => {
@@ -106,7 +107,6 @@ const CreatePost = () => {
                 <option value="Design">Design</option>
                 <option value="Food">Food</option>
                 <option value="Travel">Travel</option>
-                <option value="Social Media">Social Media</option>
                 <option value="Life">Life</option>
                 <option value="Other">Other</option>
               </select>
@@ -135,7 +135,7 @@ const CreatePost = () => {
               </span>
               : null
             }
-            <textarea ref={blogtext} onChange={(e) => setTextLetter(e.target.value.length)} minLength={100} className="w-full overflow-y-auto p-3 resize-none text-black invalid:outline-red-400" rows="10" cols="33" placeholder="Write down your post" required></textarea>
+            <textarea ref={blogtext} onChange={(e) => setTextLetter(e.target.value.length)} minLength={100} className="w-full whitespace-pre overflow-y-auto p-3 resize-none text-black invalid:outline-red-400" rows="10" cols="33" placeholder="Write down your post" required></textarea>
             <small className="text-gray-500 dark:text-slate-300">This website is created for learning purposes. Please make sure to save your blog text locally or somewhere else. </small>
           </div>
           <div className="w-full flex gap-2 justify-center relative mobile:flex-col-reverse">

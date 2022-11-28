@@ -2,6 +2,7 @@ import '../src/styles/globals.css'
 import { store } from '../src/app/store'
 import { Provider, useSelector } from 'react-redux'
 import NavBar from '../src/components/NavBar'
+import Footer from '../src/components/Footer'
 import { useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from '../src/firebase-config'
@@ -49,7 +50,9 @@ function AppComponent({ Component, pageProps, router }) {
         <AnimatePresence>
           <Component key={router.pathname} {...pageProps} />
         </AnimatePresence>
-        : null}
+        : null
+      }
+      <Footer />
     </div>
   )
 }

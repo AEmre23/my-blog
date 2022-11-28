@@ -157,33 +157,33 @@ const Signup = () => {
           variants={container1}
           initial="hidden"
           animate="show"
-          className={`${loading ? 'blur-[2px]' : ''} flex flex-col gap-8 border-2 rounded-md border-l-text pb-8 dark:border-scolor p-3 my-4 w-96 mobile:w-full relative`}
+          className={`${loading ? 'blur-[2px]' : ''} flex flex-col shadow-2xl gap-8 border-2 rounded-md border-l-text/75 pb-12 dark:border-scolor p-5 my-4 w-96 mobile:w-full relative`}
         >
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Username*</label>
-            <input ref={username} className={`${validUsername ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border  bg-sdarkc text-white placeholder:text-gray-400`} type='text' placeholder='Pick an username' />
+            <input ref={username} className={`${validUsername ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400`} type='text' placeholder='Pick an username' />
           {validUsername ? null : <div className="absolute text-red-600 -bottom-6 left-1">enter at least 2 letters</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Email*</label>
-            <input ref={email} className={`${validEmail ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
+            <input ref={email} className={`${validEmail ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
             {validEmail ? null : <div className="absolute text-red-600 -bottom-6 left-1">{mailError}</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Password*</label>
-            <input ref={password1} className={`${validPassword ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400 `} type='password' placeholder='Enter a password' />
+            <input ref={password1} className={`${validPassword ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400 `} type='password' placeholder='Enter a password' />
             {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
             {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-semibold ml-1`}>Enter password again*</label>
-            <input ref={password2} className={`${validPasswordCheck ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border bg-sdarkc text-white placeholder:text-gray-400`} type='password' placeholder='Enter password again' />
+            <input ref={password2} className={`${validPasswordCheck ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400`} type='password' placeholder='Enter password again' />
             {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
             {validPasswordCheck ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
           </m.div>
           <m.div variants={containerChild} className="w-full flex justify-center mt-4 relative">
             <button ref={submitButton} className="p-2 bg-buttonc font-inter active:scale-95 text-white rounded-lg text-bold text-lg w-72 transition-all hover:brightness-110" type='submit'>Sign up</button>
-            <div className="absolute -bottom-8">Already an user? <Link href="/Login"><span className="text-scolor cursor-pointer hover:underline">Login.</span></Link></div>
+            <div className="absolute -bottom-12">Already an user? <Link href="/Login"><span className="text-scolor cursor-pointer hover:underline">Login.</span></Link></div>
           </m.div>
           {loading ?
             <div className="absolute top-0 right-0 w-full h-full bg-black/30">

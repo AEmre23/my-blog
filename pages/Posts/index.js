@@ -5,7 +5,7 @@ import BlogCard from '../../src/components/BlogCard'
 
 
 const Index = () => {
-  const posts = useSelector((state) => state.posts.value.sortedData)
+  const posts = useSelector((state) => state.posts.value.data)
   const categories = ["All","Technology", "Design", "Food", "Travel", "Life", "Other"]
   const [filter, setFilter] = useState("All")
 

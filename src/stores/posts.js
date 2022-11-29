@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const postsSlice = createSlice({
   name: "allPosts",
-  initialState : { value: [] },
+  initialState : { value: { data:[], isLoading:true } },
   reducers: {
     setPosts: (state,action) => {
       state.value = action.payload;

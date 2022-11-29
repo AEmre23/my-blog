@@ -11,17 +11,24 @@ import { setLogin } from '../src/stores/user'
 import { setPosts } from '../src/stores/posts'
 import { collection, getDocs } from 'firebase/firestore'
 import { AnimatePresence } from 'framer-motion'
+import logo from '../src/assets/elogo.png'
+import Image from 'next/image'
 
 function AppComponent({ Component, pageProps, router }) {
-  const posts = useSelector((state) => state.posts.value.sortedData)
+  const posts = useSelector((state) => state.posts.value)
   const dispatch = useDispatch()
   const postsCollectionRef = collection(db, "posts")
 
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef)
-      const sortedData = data.docs.map((doc)=>({...doc.data(), id:doc.id}))
-      dispatch(setPosts({ sortedData }))
+      const sortedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      setTimeout(()=>{
+      dispatch(setPosts({
+        data: sortedData,
+        isLoading:false
+      }))
+      },2500)
     }
     getPosts()
 
@@ -44,16 +51,24 @@ function AppComponent({ Component, pageProps, router }) {
   }, []);
 
   return (
-    <div className='font-nunito min-h-screen duration-700 text-newtext bg-newbg dark:bg-bg-dark dark:text-d-text overflow-hidden mobile:overflow-clip' >
-      <NavBar />
-      {posts?.length > 0 ?
-        <AnimatePresence>
-          <Component key={router.pathname} {...pageProps} />
-        </AnimatePresence>
-        : null
+  <>
+      {posts.isLoading ?
+        <div className="fixed h-screen w-full bg-newbg flex items-center justify-center">
+          <Image className="animate-pulse" src={logo} alt="site-logo" />
+        </div>
+      :
+      <div className='font-nunito min-h-screen duration-700 text-newtext bg-newbg dark:bg-bg-dark dark:text-d-text overflow-hidden mobile:overflow-clip' >
+        <NavBar />
+        {posts?.data.length > 0 ?
+          <AnimatePresence>
+            <Component key={router.pathname} {...pageProps} />
+          </AnimatePresence>
+          : null
+        }
+        <Footer />
+        </div>
       }
-      <Footer />
-    </div>
+    </>
   )
 }
 

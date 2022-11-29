@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 // assets
 import logo from '../assets/elogofull.png'
 import avatar from '../assets/avatar.jpg'
+import elogo from '../assets/elogo.png'
+import elogoyazi from '../assets/elogoyazi.png'
 // react icon
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdClose } from 'react-icons/md'
@@ -33,12 +35,18 @@ const NavBar = () => {
   }, [menuToggle]);
 
   return (
-    <div className="absolute mobile:fixed top-0 right-0 w-full z-30">
-      <header className="w-full bg-newbg/75 text-newtext text-lg font-bold border-b-2 border-newtext/75 p-4 flex justify-center items-center">
+    <div className="fixed top-0 right-0 w-full z-30">
+      <header className={`${menuToggle ? 'bg-white/90' : 'bg-white'} w-full text-newtext text-lg font-bold border-b-2 border-newtext/75 p-4 flex justify-center items-center`}>
         <div className="w-9/12 mobile:w-11/12 flex justify-between items-center">
           <Link href='/'>
-            <div onClick={()=>setMenuToggle(true)}  className="flex items-center gap-3 cursor-pointer transition-all scale-125 hover:scale-[1.27]">
+            <div onClick={()=>setMenuToggle(true)}  className="hidden mobile:flex z-50 items-center gap-3 cursor-pointer transition-all scale-125">
               <Image src={logo} width={115} height={45} alt='site-logo' />
+            </div>
+          </Link>
+          <Link href='/'>
+            <div onClick={()=>setMenuToggle(true)}  className="bg-white px-2 flex mobile:hidden items-center gap-3 cursor-pointer transition-all hover:scale-105">
+              <Image src={elogo} width={45} height={45} alt='site-logo' />
+              <Image src={elogoyazi} width={85} height={16} alt='site-text' />
             </div>
           </Link>
           <div className="flex items-center gap-24 mt-2 mobile:hidden">
@@ -54,27 +62,29 @@ const NavBar = () => {
                 </ul>
                 :
                 <div className="flex gap-3">
-                  <Link href="/CreatePost"><span className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-black">Create Post</span></Link>
-                  <div onMouseOver={(e)=>e.currentTarget.lastElementChild.style.display='block'} onMouseLeave={(e)=>e.currentTarget.lastElementChild.style.display='none'} className="flex flex-row-reverse gap-2 pl-4 relative cursor-pointer">
+                  <Link href="/CreatePost">
+                    <span className="cursor-pointer transition-all hover:-translate-y-0.5 hover:text-black">Create Post</span>
+                  </Link>
+                  <div onMouseOver={(e)=>{ e.currentTarget.lastElementChild.style.scale = 1; e.currentTarget.lastElementChild.style.transform = "translateY(8px)" }} onMouseLeave={(e)=>{ e.currentTarget.lastElementChild.style.scale = 0; e.currentTarget.lastElementChild.style.transform = "translateY(-8px)"  }} className="flex flex-row-reverse gap-2 pl-4 relative cursor-pointer">
                     <div className="">{user.name}</div>
                     <div className=""><Image className="rounded-full" src={avatar} width={25} height={25} alt='avatar' /></div>
-                    <button onClick={logout} className="absolute hidden -bottom-8 left-3 shadow-md border-2  border-white bg-scolor text-white p-1 w-full">Logout</button>
+                    <button onClick={logout} style={{scale:0}} className="absolute -bottom-8 left-3 shadow-md border-2 duration-200 origin-top bg-bhover rounded text-white p-1 w-full hover:brightness-110 active:scale-95">Logout</button>
                   </div>
                 </div>
               }
             </div>
           </div>
           <div onClick={()=>setMenuToggle(!menuToggle)} className='text-white hidden mobile:block scale-125 z-50 relative'>
-          {menuToggle ?
-            <GiHamburgerMenu className="text-newtext" />
-            :
-            <MdClose className="scale-150 text-newtext" />
+          {menuToggle
+            ? <GiHamburgerMenu className="text-newtext" />
+            : <MdClose className="scale-150 text-newtext" />
           }
           </div>
         </div>
       </header>
-      <div ref={mobileMenu} className={`border-l-2 ${menuToggle ? 'translate-x-[225px]' : 'translate-x-0 '} duration-500 fixed z-40 top-0 pt-24 right-0 w-[225px] h-screen bg-white/90 text-newtext`}>
-        <div className='px-6 text-right flex flex-col gap-3 text-2xl font-bold'>
+      <div ref={mobileMenu} className={`${menuToggle ? 'translate-x-[225px]' : 'translate-x-0 '} duration-500 fixed z-40 top-0 pt-[77px] right-0 w-[225px] h-screen bg-white shadow-xl text-newtext`}>
+        <div className='px-6 text-right flex flex-col gap-3 text-2xl font-bold border-t-2 pt-8 border-newtext/70'>
+          <Link href="/"><div onClick={() => setMenuToggle(true)}>Home</div></Link>
           <Link href="/Posts"><div onClick={() => setMenuToggle(true)}>Posts</div></Link>
           <Link href="/About"><div onClick={()=>setMenuToggle(true)}>About</div></Link>
           {user.email.length === 0 ?

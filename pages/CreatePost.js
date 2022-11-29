@@ -88,7 +88,7 @@ const CreatePost = () => {
       <main>
         <h1 className="text-4xl mb-3 font-bold">Create a blog post</h1>
         <h2 className="text-xl mb-8 font-semibold">Flow your thoughts, feelings and experiences into the text</h2>
-        <form onSubmit={formHandler} className="flex flex-col gap-4 mt-4 w-full border-2 p-3 border-slate-400 rounded-sm mb-8 relative">
+        <form onSubmit={formHandler} className="flex flex-col gap-4 mt-4 w-full border-2 p-5 mobile:p-2 border-bhover rounded-sm mb-16 relative">
           <div className="flex flex-col gap-2">
             <label className="block font-bold">Blog Title</label>
             <input minLength={2} maxLength={50} className="w-[500px] mobile:w-full p-2 rounded-md text-black invalid:outline-red-400" type="text" placeholder="Enter Your Blog Title" required/>
@@ -98,7 +98,7 @@ const CreatePost = () => {
             <textarea minLength={30} maxLength={150}  className="p-2 resize-none rounded-md text-black invalid:outline-red-400" rows="2" type="text" placeholder="Write a description about your blog"></textarea>
             <small className="text-gray-500 dark:text-slate-300">If you don't write description, the first 20 word of your blog post will shown on description</small>
           </div>
-          <div className="flex justify-between px-2 mobile:flex-col mobile:px-0 mobile:gap-3">
+          <div className="flex justify-between mobile:flex-col mobile:px-0 mobile:gap-7">
             <div className="flex flex-col gap-8">
               <label className="block font-bold">Blog Category</label>
               <select className="w-96 mobile:w-full p-2 cursor-pointer text-black rounded-md" defaultValue={'DEFAULT'}>
@@ -135,12 +135,12 @@ const CreatePost = () => {
               </span>
               : null
             }
-            <textarea ref={blogtext} onChange={(e) => setTextLetter(e.target.value.length)} minLength={100} className="w-full whitespace-pre overflow-y-auto p-3 resize-none text-black invalid:outline-red-400" rows="10" cols="33" placeholder="Write down your post" required></textarea>
+            <textarea ref={blogtext} onChange={(e) => setTextLetter(e.target.value.length)} minLength={100} className="w-full rounded whitespace-pre overflow-y-auto p-3 resize-none text-black invalid:outline-red-400" rows="10" cols="33" placeholder="Write down your post" required></textarea>
             <small className="text-gray-500 dark:text-slate-300">This website is created for learning purposes. Please make sure to save your blog text locally or somewhere else. </small>
           </div>
-          <div className="w-full flex gap-2 justify-center relative mobile:flex-col-reverse">
-            <button type="submit" className="bg-blue-500 text-white rounded-md p-2 w-96 mobile:w-full duration-300 hover:brightness-125 active:scale-95">Submit</button>
-            <button type="reset" onClick={() => { setHashtags([]); setTextLetter(0) }} className="bg-red-500 mobile:static mobile:w-16 absolute right-2 text-white rounded-md py-2 px-1 w-40 duration-300 hover:brightness-125 active:scale-95">Reset</button>
+          <div className="w-full flex gap-2 justify-end items-center font-bold mobile:flex-row-reverse">
+            <button type="submit" className="bg-bhover hover:bg-green-400 text-white rounded-md p-2 px-12 mobile:w-full duration-300 active:scale-95">Submit</button>
+            <button type="reset" onClick={() => { setHashtags([]); setTextLetter(0) }} className="bg-white text-bhover border-bhover hover:border-red-700 hover:bg-red-700 hover:text-white border-2 rounded-md py-1.5 px-8 duration-300 hover:brightness-125 active:scale-95">Reset</button>
           </div>
           {loading ?
             <div className="absolute top-0 right-0 w-full h-full bg-black/30">

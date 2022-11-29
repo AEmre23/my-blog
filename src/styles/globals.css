@@ -8,6 +8,17 @@ html {
   overflow-y: overlay;
   scroll-behavior: smooth;
 }
+html::-webkit-scrollbar {
+  width: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: #eae4e4;
+}
+html::-webkit-scrollbar-thumb {
+  background: #0A3534;
+  border-radius: 100vh;
+  border: 2.5px solid #f6f7ed;
+}
 .showhide{
   @apply absolute bottom-3 text-gray-400 right-3 cursor-pointer scale-125 hover:text-black;
 }

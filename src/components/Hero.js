@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 
 const Hero = () => {
-  const posts = useSelector((state) => state.posts.value.sortedData)
+  const posts = useSelector((state) => state.posts.value.data)
 
   return (
     <main>

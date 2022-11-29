@@ -183,7 +183,7 @@ const Signup = () => {
           </m.div>
           <m.div variants={containerChild} className="w-full flex justify-center mt-4 relative">
             <button ref={submitButton} className="p-2 bg-buttonc font-inter active:scale-95 text-white rounded-lg text-bold text-lg w-72 transition-all hover:brightness-110" type='submit'>Sign up</button>
-            <div className="absolute -bottom-12">Already an user? <Link href="/Login"><span className="text-scolor cursor-pointer hover:underline">Login.</span></Link></div>
+            <div className="absolute -bottom-10">Already an user? <Link href="/Login"><span className="text-scolor cursor-pointer hover:underline">Login.</span></Link></div>
           </m.div>
           {loading ?
             <div className="absolute top-0 right-0 w-full h-full bg-black/30">

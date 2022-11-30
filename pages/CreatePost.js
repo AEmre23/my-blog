@@ -80,7 +80,7 @@ const CreatePost = () => {
         }
       }
       createPost(post)
-    } else console.log("Error")
+    } else console.log("Error, please check inputs")
   }
 
   return (

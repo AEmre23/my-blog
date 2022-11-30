@@ -19,19 +19,19 @@ function AppComponent({ Component, pageProps, router }) {
   const dispatch = useDispatch()
   const postsCollectionRef = collection(db, "posts")
 
-  useEffect(() => {
-    const getPosts = async () => {
-      const data = await getDocs(postsCollectionRef)
-      const sortedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      setTimeout(()=>{
+  const getPosts = async () => {
+    const data = await getDocs(postsCollectionRef)
+    const sortedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    setTimeout(() => {
       dispatch(setPosts({
         data: sortedData,
-        isLoading:false
+        isLoading: false
       }))
-      },2500)
-    }
-    getPosts()
+    }, 2500)
+  }
 
+  useEffect(() => {
+    getPosts()
   }, []);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ function AppComponent({ Component, pageProps, router }) {
         dispatch(setLogin({
           name: currentUser.displayName,
           email: currentUser.email,
+          id: currentUser.uid
         }))
       }
     })
@@ -53,18 +54,15 @@ function AppComponent({ Component, pageProps, router }) {
   return (
   <>
       {posts.isLoading ?
-        <div className="fixed h-screen w-full bg-newbg flex items-center justify-center">
+        <div className="fixed h-screen w-full bg-newbg flex flex-col-reverse gap-3 items-center justify-center">
           <Image className="animate-pulse" src={logo} alt="site-logo" />
         </div>
       :
-      <div className='font-nunito min-h-screen duration-700 text-newtext bg-newbg dark:bg-bg-dark dark:text-d-text overflow-hidden mobile:overflow-clip' >
+      <div className='font-nunito min-h-screen duration-700 text-newtext bg-newbg dark:bg-bg-dark dark:text-d-text overflow-clip' >
         <NavBar />
-        {posts?.data.length > 0 ?
-          <AnimatePresence>
-            <Component key={router.pathname} {...pageProps} />
-          </AnimatePresence>
-          : null
-        }
+        <AnimatePresence>
+          <Component key={router.pathname} {...pageProps} />
+        </AnimatePresence>
         <Footer />
         </div>
       }

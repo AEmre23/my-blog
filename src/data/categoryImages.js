@@ -15,14 +15,15 @@ const ImagePicker = (category) => {
   lifeImg,
   otherImg
   ]
-    if (category.toLowerCase() == "food") cateImg = Images[0]
-    else if (category.toLowerCase() == "technology") cateImg = Images[1]
-    else if (category.toLowerCase() == "travel") cateImg = Images[2]
-    else if (category.toLowerCase() == "design") cateImg = Images[3]
-    else if (category.toLowerCase() == "life") cateImg = Images[4]
+    if (category?.toLowerCase() == "food") cateImg = Images[0]
+    else if (category?.toLowerCase() == "technology") cateImg = Images[1]
+    else if (category?.toLowerCase() == "travel") cateImg = Images[2]
+    else if (category?.toLowerCase() == "design") cateImg = Images[3]
+    else if (category?.toLowerCase() == "life") cateImg = Images[4]
     else cateImg = Images[5]
-    return cateImg
-  }
+  
+  return cateImg
+}
 
 
 export default ImagePicker

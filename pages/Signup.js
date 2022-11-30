@@ -160,24 +160,24 @@ const Signup = () => {
           className={`${loading ? 'blur-[2px]' : ''} flex flex-col shadow-2xl gap-8 border-2 rounded-md border-l-text/75 pb-12 dark:border-scolor p-5 my-4 w-96 mobile:w-full relative`}
         >
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
-            <label className={`font-semibold ml-1`}>Username*</label>
-            <input ref={username} className={`${validUsername ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400`} type='text' placeholder='Pick an username' />
+            <label className={`font-bold ml-1`}>Username*</label>
+            <input ref={username} className={`${validUsername ? '' : 'border-2 border-red-600'} p-2 rounded-md border text-black placeholder:text-gray-400`} type='text' placeholder='Pick an username' />
           {validUsername ? null : <div className="absolute text-red-600 -bottom-6 left-1">enter at least 2 letters</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
-            <label className={`font-semibold ml-1`}>Email*</label>
-            <input ref={email} className={`${validEmail ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
+            <label className={`font-bold ml-1`}>Email*</label>
+            <input ref={email} className={`${validEmail ? '' : 'border-2 border-red-600'} p-2 rounded-md border text-black placeholder:text-gray-400`} type='text' placeholder='Enter your email' />
             {validEmail ? null : <div className="absolute text-red-600 -bottom-6 left-1">{mailError}</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
-            <label className={`font-semibold ml-1`}>Password*</label>
-            <input ref={password1} className={`${validPassword ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400 `} type='password' placeholder='Enter a password' />
+            <label className={`font-bold ml-1`}>Password*</label>
+            <input ref={password1} className={`${validPassword ? '' : 'border-2 border-red-600'} p-2 rounded-md border text-black placeholder:text-gray-400 `} type='password' placeholder='Enter a password' />
             {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
             {validPassword ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
           </m.div>
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
-            <label className={`font-semibold ml-1`}>Enter password again*</label>
-            <input ref={password2} className={`${validPasswordCheck ? 'border-current' : 'border-red-600'} p-2 focus:outline-green-400 rounded-md border text-black placeholder:text-gray-400`} type='password' placeholder='Enter password again' />
+            <label className={`font-bold ml-1`}>Enter password again*</label>
+            <input ref={password2} className={`${validPasswordCheck ? '' : 'border-2 border-red-600'} p-2 rounded-md border text-black placeholder:text-gray-400`} type='password' placeholder='Enter password again' />
             {showPassword ? <BiShow onClick={passwordShower} className="showhide" /> : <BiHide onClick={passwordShower} className="showhide" /> }
             {validPasswordCheck ? null : <div className="absolute text-red-600 -bottom-6 left-1">{passwordError}</div>}
           </m.div>

@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   const name = pathname.replace(/[^a-zA-Z ]/g, "");
 
   return (
-    <div className="w-full min-h-screen flex justify-center mt-28 mobile:mt-0 mobile:pt-28 bigscreen:mt-44">
+    <div className="w-full min-h-screen flex justify-center pt-28 mobile:mt-0 mobile:pt-28 bigscreen:pt-36">
       <Head>
         <title>e-Blog | {name} </title>
       </Head>

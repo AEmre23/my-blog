@@ -6,15 +6,37 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 // firebase
 import { auth, db } from '../src/firebase-config'
-import { addDoc, collection } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 
-const CreatePost = () => {
+const EditPost = () => {
   const router = useRouter()
-  const [loading,setLoading] = useState(false)
-  const [hashtags, setHashtags] = useState([])
-  const [textLetter,setTextLetter] = useState(0)
+  const formTitle = useRef()
+  const formDescription = useRef()
+  const formCategory = useRef()
   const blogtext = useRef()
+  const data = router.query
+
+  const {
+    title,
+    description,
+    category,
+    id,
+    hashtags,
+    text,
+  } = data
+
+  useEffect(() => {
+    formTitle.current.value = title
+    formDescription.current.value = description
+    formCategory.current.value = category
+    blogtext.current.value = text
+    setHashtag([...hashtags])
+  }, []);
+  
+  const [loading,setLoading] = useState(false)
+  const [hashtag, setHashtag] = useState([])
+  const [textLetter,setTextLetter] = useState(0)
 
   useEffect(() => {
     setLoading(true)
@@ -31,23 +53,23 @@ const CreatePost = () => {
     if (hashtagInput.value.length > 1 && hashtagInput.value.length < 20) {
       let eachHashtagValue = hashtagInput.value
       hashtagInput.style.outline = "none"
-      setHashtags([...hashtags, eachHashtagValue[0].toUpperCase() + eachHashtagValue.slice(1,eachHashtagValue.length).toLowerCase()])
+      setHashtag([...hashtag, eachHashtagValue[0].toUpperCase() + eachHashtagValue.slice(1,eachHashtagValue.length).toLowerCase()])
       hashtagInput.value = ""
     }
     else hashtagInput.style.outline = "2px solid red"
   }
 
   const removeHashtag = (e) => {
-    setHashtags(hashtags.filter((each)=> e.target.innerText !== `#${each}`))
+    setHashtag(hashtag.filter((each)=> e.target.innerText !== `#${each}`))
   }
 
-  const postsCollectionRef = collection(db, "posts")
-  const createPost = async (post) => {
+  const docRef = doc(db, "posts",id)
+  const editPost = async (post) => {
     setLoading(true)
-    await addDoc(postsCollectionRef, post)
+    await setDoc(docRef, post)
     setLoading(false)
-    router.push('/Posts')
-    setTimeout(() => {window.location.reload()} , 1 )
+    router.push(`/Posts/${id}`)
+    setTimeout(() => {window.location.reload()} , 500 )
   }
 
   const formHandler = (e) => {
@@ -72,36 +94,36 @@ const CreatePost = () => {
         title: blogTitle,
         description: blogDescription,
         category: blogCategory,
-        hashtags,
+        hashtags:hashtag,
         text: blogContent,
         author: {
           name: auth.currentUser.displayName ,
           id: auth.currentUser.uid
         }
       }
-      createPost(post)
+      editPost(post)
     } else console.log("Error, please check inputs")
   }
 
   return (
     <Layout>
       <main>
-        <h1 className="text-4xl mb-3 font-bold">Create a blog post</h1>
-        <h2 className="text-xl mb-8 font-semibold">Flow your thoughts, feelings and experiences into the text</h2>
+        <h1 className="text-4xl mb-3 font-bold">Edit your post</h1>
+        <h2 className="text-xl mb-8 font-semibold">You can change your post here</h2>
         <form onSubmit={formHandler} className="flex flex-col gap-4 mt-4 w-full border-2 p-5 mobile:p-2 border-bhover rounded-sm mb-16 relative">
           <div className="flex flex-col gap-2">
             <label className="block font-bold">Blog Title</label>
-            <input minLength={2} maxLength={50} className="w-[500px] mobile:w-full p-2 rounded-md text-black invalid:outline-red-400" type="text" placeholder="Enter Your Blog Title" required/>
+            <input ref={formTitle} minLength={2} maxLength={50} className="w-[500px] mobile:w-full p-2 rounded-md text-black invalid:outline-red-400" type="text" placeholder="Enter Your Blog Title" required/>
           </div>
           <div className="flex flex-col gap-2">
             <label className="block font-bold">Blog Description (Optional)</label>
-            <textarea minLength={30} maxLength={150}  className="p-2 resize-none rounded-md text-black invalid:outline-red-400" rows="2" type="text" placeholder="Write a description about your blog"></textarea>
+            <textarea ref={formDescription} minLength={30} maxLength={150}  className="p-2 resize-none rounded-md text-black invalid:outline-red-400" rows="2" type="text" placeholder="Write a description about your blog"></textarea>
             <small className="text-gray-500 dark:text-slate-300">If you don't write description, the first 20 word of your blog post will shown on description</small>
           </div>
           <div className="flex justify-between mobile:flex-col mobile:px-0 mobile:gap-7">
             <div className="flex flex-col gap-8">
               <label className="block font-bold">Blog Category</label>
-              <select className="w-96 mobile:w-full p-2 cursor-pointer text-black rounded-md" defaultValue={'DEFAULT'}>
+              <select ref={formCategory} className="w-96 mobile:w-full p-2 cursor-pointer text-black rounded-md" defaultValue={'DEFAULT'}>
                 <option value="DEFAULT" disabled>Choose a Topic</option>
                 <option value="Technology">Technology</option>
                 <option value="Design">Design</option>
@@ -119,7 +141,7 @@ const CreatePost = () => {
                 <button onClick={addHashtag} className="absolute bottom-1.5 right-4 hover:brightness-110 active:scale-95 text-xl bg-slate-500 text-white px-2 rounded-md">+</button>
               </div>
               <div className="flex flex-wrap gap-2 w-[500px] mobile:w-full mt-2">
-                {hashtags.map((each, i) =>
+                {hashtag.map((each, i) =>
                   <div onClick={removeHashtag} className="flex gap-1 border-2 p-2 border-gray-400 rounded-md cursor-pointer hover:border-red-500 hover:bg-white" key={i}>
                     #{each}
                   </div>
@@ -139,8 +161,8 @@ const CreatePost = () => {
             <small className="text-gray-500 dark:text-slate-300">This website is created for learning purposes. Please make sure to save your blog text locally or somewhere else. </small>
           </div>
           <div className="w-full flex gap-2 justify-end items-center font-bold mobile:flex-row-reverse">
-            <button type="submit" className="bg-bhover hover:bg-green-400 text-white rounded-md p-2 px-12 mobile:w-full duration-300 active:scale-95">Submit</button>
-            <button type="reset" onClick={() => { setHashtags([]); setTextLetter(0) }} className="bg-white text-bhover border-bhover hover:border-red-700 hover:bg-red-700 hover:text-white border-2 rounded-md py-1.5 px-8 duration-300 hover:brightness-125 active:scale-95">Reset</button>
+            <button type="submit" className="bg-bhover hover:bg-green-400 text-white rounded-md p-2 px-12 mobile:w-full duration-300 active:scale-95">Edit Post</button>
+            <button type="reset" onClick={() => { setHashtag([]); setTextLetter(0) }} className="bg-white text-bhover border-bhover hover:border-red-700 hover:bg-red-700 hover:text-white border-2 rounded-md py-1.5 px-8 duration-300 hover:brightness-125 active:scale-95">Reset</button>
           </div>
           {loading ?
             <div className="absolute top-0 right-0 w-full h-full bg-black/30">
@@ -155,4 +177,4 @@ const CreatePost = () => {
   )
 }
 
-export default CreatePost
+export default EditPost

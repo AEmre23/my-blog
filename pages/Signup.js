@@ -188,7 +188,7 @@ const Signup = () => {
           {loading ?
             <div className="absolute top-0 right-0 w-full h-full bg-black/30">
               <div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2">
-                <Image src={loadingif} alt='loader' />
+                <Image src={loadingif} alt='loader' priority/>
               </div>
             </div>
           : null}
@@ -210,7 +210,7 @@ const Signup = () => {
             </p>
           </div>
           <div className="mobile:hidden pointer-events-none">
-            <Image width={350} height={275} src={signupPic} alt='sign-ill' />
+            <Image width={350} height={275} src={signupPic} alt='sign-ill' priority/>
           </div>
         </m.div>
       </div>

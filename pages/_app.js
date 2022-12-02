@@ -13,6 +13,7 @@ import { collection, getDocs } from 'firebase/firestore'
 import { AnimatePresence } from 'framer-motion'
 import logo from '../src/assets/elogo.png'
 import Image from 'next/image'
+import logoLoader from '../src/assets/loading.gif'
 
 function AppComponent({ Component, pageProps, router }) {
   const posts = useSelector((state) => state.posts.value)

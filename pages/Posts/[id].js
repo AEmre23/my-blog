@@ -18,7 +18,7 @@ const Id = () => {
   const user = useSelector((state) => state.user.value)
   const router = useRouter()
   const { id } = router.query
-  const pagePost = posts.find((each) => each.id === id)
+  const pagePost = posts?.find((each) => each.id === id)
 
   const textOpener = (e) => {
     setIsDetailOpen(!isDetailOpen)
@@ -84,7 +84,7 @@ const Id = () => {
                 <>
                   <Link href={{
                     pathname: "/EditPost",
-                    query: pagePost
+                    query: { data: JSON.stringify(pagePost), author: JSON.stringify(pagePost.author)}
                   }}>
                   <button className="px-3 py-1 bg-white border-2 border-newtext mt-4 rounded-lg text-newtext duration-200 hover:bg-newtext hover:text-white ">Edit this post</button>
                   </Link>

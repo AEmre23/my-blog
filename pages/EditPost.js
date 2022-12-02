@@ -16,22 +16,16 @@ const EditPost = () => {
   const formCategory = useRef()
   const blogtext = useRef()
   const data = router.query
+  const author = data ? JSON.parse(data.author) : null
+  const postData = data ? JSON.parse(data.data) : null
 
-  const {
-    title,
-    description,
-    category,
-    id,
-    hashtags,
-    text,
-  } = data
 
   useEffect(() => {
-    formTitle.current.value = title
-    formDescription.current.value = description
-    formCategory.current.value = category
-    blogtext.current.value = text
-    setHashtag([...hashtags])
+    formTitle.current.value = postData?.title
+    formDescription.current.value = postData?.description
+    formCategory.current.value = postData?.category
+    blogtext.current.value = postData?.text
+    postData?.hashtags? setHashtag([...postData?.hashtags]) : null
   }, []);
   
   const [loading,setLoading] = useState(false)
@@ -63,12 +57,13 @@ const EditPost = () => {
     setHashtag(hashtag.filter((each)=> e.target.innerText !== `#${each}`))
   }
 
-  const docRef = doc(db, "posts",id)
+
   const editPost = async (post) => {
+    const docRef = doc(db, "posts",postData?.id)
     setLoading(true)
     await setDoc(docRef, post)
     setLoading(false)
-    router.push(`/Posts/${id}`)
+    router.push(`/Posts/${postData?.id}`)
     setTimeout(() => {window.location.reload()} , 500 )
   }
 
@@ -97,8 +92,8 @@ const EditPost = () => {
         hashtags:hashtag,
         text: blogContent,
         author: {
-          name: auth.currentUser.displayName ,
-          id: auth.currentUser.uid
+          name: author?.name ,
+          id: author?.id
         }
       }
       editPost(post)

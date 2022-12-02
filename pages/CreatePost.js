@@ -47,7 +47,7 @@ const CreatePost = () => {
     await addDoc(postsCollectionRef, post)
     setLoading(false)
     router.push('/Posts')
-    setTimeout(() => {window.location.reload()} , 1 )
+    setTimeout(() => {window.location.reload()} , 500 )
   }
 
   const formHandler = (e) => {

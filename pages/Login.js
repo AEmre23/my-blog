@@ -105,7 +105,7 @@ const Login = () => {
           variants={container1}
           initial="hidden"
           animate="show"
-          className={`${loading ? 'blur-[3px]' : ''} flex flex-col shadow-2xl gap-10 mobile:gap-8 border-2 rounded-md border-bhover dark:border-scolor p-3 mobile:pb-24 my-4 w-96 mobile:w-full relative`}
+          className={`${loading ? 'blur-[1px]' : ''} flex flex-col shadow-2xl gap-10 mobile:gap-8 border-2 rounded-md border-bhover dark:border-scolor p-3 mobile:pb-24 my-4 w-96 mobile:w-full relative`}
         >
           <m.div variants={containerChild} className="flex flex-col gap-2 relative">
             <label className={`font-bold ml-1`}>Email</label>
@@ -125,7 +125,7 @@ const Login = () => {
           {loading ?
             <div className="absolute top-0 right-0 w-full h-full bg-black/30">
               <div className="absolute blur-none bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2">
-                <Image src={loadingif} alt='loader' priority/>
+                <div className='loader' alt='loader' />
               </div>
             </div>
           : null}
